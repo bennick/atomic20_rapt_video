@@ -15,6 +15,13 @@ header{
 	line-height: 30px;
 	margin-bottom:8px;
 }
+button {
+	display: block;
+	padding: 20px 40px;
+	background: blue;
+	color: white;
+	margin: 20px auto 0 auto;
+}
 footer{
 	position:fixed;
 	text-align: left;
