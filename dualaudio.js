@@ -11,13 +11,12 @@
 
 (function() {
   var Beneful = function () {
-    this.dualAudioOneFile = function(iframeName, audioId, buttonId, offset, buttonLabel1, buttonLabel2) {
+    this.dualAudioOneFile = function(iframeName, audioId, buttonId, offset) {
+      var _this = this;
       var iframeName;
       var audioId;
       var buttonId;
       var offset;
-      var buttonLabel1;
-      var buttonLabel2;
       
       var audioElm = document.getElementById(audioId);
       var audioBtn = document.getElementById(buttonId);
@@ -39,23 +38,24 @@
       raptor.api.on("play", function(){
       	audioElm.play();
       });
+      
+      raptor.api.on("progress", function(){
+        console.log("Progress");
+      });
 
       audioBtn.addEventListener('click', function() {
-         alert("Hello here!"); 
+         videoProgress = (raptor.api.state(iframeName).progressTime);
+         if(_this.currentAudioTrack == 1) {
+           audioElm.currentTime = videoProgress + offset;
+           _this.currentAudioTrack = 2;
+         } else {
+           audioElm.currentTime = videoProgress
+           _this.currentAudioTrack = 1;
+         }
       });
       
-      raptor.api.on("button", function(event, data){
-      	var videoProgress;
-      	if(data.action === buttonLabel1){
-      		videoProgress = (raptor.api.state(iframeName).progressTime);
-      		audioElm.currentTime = videoProgress;
-      	}
-      	if(data.action === buttonLabel2){
-      		videoProgress = (raptor.api.state(iframeName).progressTime) + offset;
-      		audioElm.currentTime = videoProgress;
-      	}
-      });
     };
+    this.currentAudioTrack = 1;
   }
   window.Beneful = Beneful;
 })();
