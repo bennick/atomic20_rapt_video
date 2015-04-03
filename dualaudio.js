@@ -9,46 +9,48 @@
 //    6. The button label for audio track 2
 //
 
-var iframeName;
-var audioId;
-var buttonId;
-var offset;
-var buttonLabel1;
-var buttonLabel2;
+(function() {
+  var Beneful = function () {
+    this.dualAudioOneFile = function(iframeName, audioId, buttonId, offset, buttonLabel1, buttonLabel2) {
+      var iframeName;
+      var audioId;
+      var buttonId;
+      var offset;
+      var buttonLabel1;
+      var buttonLabel2;
+      
+      var audioElm = document.getElementById(audioId);
 
-function dualAudioOneFile(iframeName, audioId, buttonId, offset, buttonLabel1, buttonLabel2) {
+      raptor.api.on("ready", function(event, el){
+        raptor.settings("defaultIFrame", el.name);
+       });
 
-  var audioElm = document.getElementById(audioId);
+      raptor.api.on("projectStart", function(){
+      	audioElm.load();
+      	audioElm.currentTime = 0;
+      	audioElm.play();
+      });
 
-  raptor.api.on("ready", function(event, el){
-    raptor.settings("defaultIFrame", el.name);
-   });
+      raptor.api.on("pause", function(){
+      	audioElm.pause();
+      });
 
-  raptor.api.on("projectStart", function(){
-  	audioElm.load();
-  	audioElm.currentTime = 0;
-  	audioElm.play();
-  });
+      raptor.api.on("play", function(){
+      	audioElm.play();
+      });
 
-  raptor.api.on("pause", function(){
-  	audioElm.pause();
-  });
-
-  raptor.api.on("play", function(){
-  	audioElm.play();
-  });
-
-  raptor.api.on("button", function(event, data){
-  	var videoProgress;
-  	if(data.action === buttonLabel1){
-  		videoProgress = (raptor.api.state(iframeName).progressTime);
-  		audioElm.currentTime = videoProgress;
-  	}
-  	if(data.action === buttonLabel2){
-  		videoProgress = (raptor.api.state(iframeName).progressTime) + offset;
-  		audioElm.currentTime = videoProgress;
-  	}
-
-  });
-
-}
+      raptor.api.on("button", function(event, data){
+      	var videoProgress;
+      	if(data.action === buttonLabel1){
+      		videoProgress = (raptor.api.state(iframeName).progressTime);
+      		audioElm.currentTime = videoProgress;
+      	}
+      	if(data.action === buttonLabel2){
+      		videoProgress = (raptor.api.state(iframeName).progressTime) + offset;
+      		audioElm.currentTime = videoProgress;
+      	}
+      });
+    };
+  }
+  window.Beneful = Beneful;
+})();
