@@ -1,0 +1,33 @@
+body{
+	font-family: "helvetica neue", helvetica, arial, sans-serif;
+	font-weight: 300;
+	margin: 0;
+	padding: 0;
+	background-color: #eee;
+	text-align: center;
+}
+header{
+	background: #222 url(logo_white_red.png) left no-repeat;
+	background-size: 60px 30px;
+	border:20px solid #222;
+	color:#dedede;
+	font-size: 18px;
+	line-height: 30px;
+	margin-bottom:8px;
+}
+footer{
+	position:fixed;
+	text-align: left;
+	bottom:0;
+	height:18px;
+	padding:8px;
+	background-color: #222;
+	color:#aaa;
+	font-size: 12px;
+	line-height: 18px;
+	width:100%;
+}
+.vjs-progress-control,
+.vjs-current-time{
+	display:none !important
+}
