@@ -3,7 +3,7 @@
 <head>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 	<script src="https://cdn1.raptmedia.com/system/scripts/api.v2.min.js"></script>
-	<script src="dualaudio.min.js"></script>
+	<script src="dualaudio.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
@@ -29,7 +29,8 @@
 		}
 	</script>
 	<script type="text/javascript">
-		dualAudioOneFile('Beneful', 'audio', 'audiotoggle', 60, 'audio-1', 'audio-2');
+		var beneful = new Beneful();
+		beneful.dualAudioOneFile('Beneful', 'audio', 'audiotoggle', 60, 'audio-1', 'audio-2');
 	</script>
 
 	</body>
