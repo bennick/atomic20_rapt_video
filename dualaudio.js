@@ -3,18 +3,20 @@
 //  You'll pass in four values:
 //    1. The name of the video player iframe
 //    2. The dom id of the audio file
-//    3. The offset of the start of the second audio track
-//    4. The button label for audio track 1
-//    5. The button label for audio track 2
+//    3. The dom id of the button
+//    4. The offset of the start of the second audio track
+//    5. The button label for audio track 1
+//    6. The button label for audio track 2
 //
 
 var iframeName;
 var audioId;
+var buttonId;
 var offset;
 var buttonLabel1;
 var buttonLabel2;
 
-function dualAudioOneFile(iframeName, audioId, offset, buttonLabel1, buttonLabel2) {
+function dualAudioOneFile(iframeName, audioId, buttonId, offset, buttonLabel1, buttonLabel2) {
 
   var audioElm = document.getElementById(audioId);
 
