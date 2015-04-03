@@ -20,6 +20,7 @@
       var buttonLabel2;
       
       var audioElm = document.getElementById(audioId);
+      var audioBtn = document.getElementById(buttonId);
 
       raptor.api.on("ready", function(event, el){
         raptor.settings("defaultIFrame", el.name);
@@ -39,6 +40,10 @@
       	audioElm.play();
       });
 
+      audioBtn.addEventListener('click', function() {
+         alert("Hello here!"); 
+      });
+      
       raptor.api.on("button", function(event, data){
       	var videoProgress;
       	if(data.action === buttonLabel1){
