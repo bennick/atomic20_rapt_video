@@ -56,6 +56,7 @@
 
       raptor.api.on("projectEnd", function(){
         _this.audioElm.currentTime = 0;
+        _this._syncAudioToVideo();
       });
       
     };
@@ -83,14 +84,14 @@
     };
 
     // Used for testing
-    this._syncVideoAudioWatcher = function(inverval) {
-      var inverval = inverval;
+    this._syncVideoAudioWatcher = function(interval) {
+      var interval = interval;
       var intervalId = undefined;
       var _this = this;
       raptor.api.on("projectStart", function(){
         intervalId = setInterval(function() {
           _this._videoAutoOutofSync();
-        }, inverval);
+        }, interval);
       });
       raptor.api.on("projectEnd", function(){
           clearInterval(intervalId);
