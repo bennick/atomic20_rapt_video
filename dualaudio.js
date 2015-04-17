@@ -30,7 +30,7 @@
 
       this._registerRaptorEvents();
       this._setUpButtonEventListener(this.iframeName, offset);
-      this._syncVideoAudioWatcher(50);
+      this._syncVideoAudioWatcher(25);
     };
 
     this._registerRaptorEvents = function() {
@@ -52,12 +52,15 @@
       });
 
       raptor.api.on("play", function(){
+        _this.audioElm.load();
+        _this.audioElm.currentTime = 0;
         _this._syncAudioToVideo();
         _this.audioElm.play();
         _this._syncAudioToVideo();
       });
 
       raptor.api.on("projectEnd", function(){
+        raptor.api.setNode(iFrameName);
         _this.audioElm.currentTime = 0;
         _this._syncAudioToVideo();
       });
