@@ -53,6 +53,11 @@
         _this._syncAudioToVideo();
         _this.audioElm.play();
       });
+
+      raptor.api.on("projectEnd", function(){
+        _this.audioElm.currentTime = 0;
+      });
+      
     };
 
     this._setUpButtonEventListener = function(iframeName, offset) {
