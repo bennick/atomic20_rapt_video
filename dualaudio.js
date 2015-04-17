@@ -30,7 +30,7 @@
 
       this._registerRaptorEvents();
       this._setUpButtonEventListener(this.iframeName, offset);
-      this._syncVideoAudioWatcher(500);
+      this._syncVideoAudioWatcher(100);
     };
 
     this._registerRaptorEvents = function() {
@@ -52,6 +52,7 @@
       raptor.api.on("play", function(){
         _this._syncAudioToVideo();
         _this.audioElm.play();
+        _this._syncAudioToVideo();
       });
 
       raptor.api.on("projectEnd", function(){
