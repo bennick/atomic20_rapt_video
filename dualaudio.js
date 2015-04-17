@@ -30,7 +30,7 @@
 
       this._registerRaptorEvents();
       this._setUpButtonEventListener(this.iframeName, offset);
-      this._syncVideoAudioWatcher(100);
+      this._syncVideoAudioWatcher(50);
     };
 
     this._registerRaptorEvents = function() {
@@ -42,7 +42,9 @@
       raptor.api.on("projectStart", function(){
         _this.audioElm.load();
         _this.audioElm.currentTime = 0;
+        _this._syncAudioToVideo();
      	  _this.audioElm.play();
+        _this._syncAudioToVideo();
       });
 
       raptor.api.on("pause", function(){
