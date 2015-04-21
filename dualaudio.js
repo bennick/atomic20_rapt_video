@@ -63,7 +63,6 @@
 
       raptor.api.on("projectEnd", function() {
         // raptor.api.setNode(154391);
-        _this.audioElm.load();
         _this.audioElm.currentTime = 0;
         _this._syncAudioToVideo();
       });
