@@ -48,10 +48,17 @@
       });
 
       raptor.api.on("play", function(data, el) {
-        _this.audioElm.play();
-        _this.audioElm.currentTime = 0;
-        _this._syncAudioToVideo();
-        console.log('play data: ', el)
+        raptor.api.on("userTimed", function(data, el) {
+          var userTimed = el.time;
+          if ((userTimed > 0) && (userTimed < 1)) {
+            _this.audioElm.play();
+            _this.audioElm.currentTime = 0;
+            _this._syncAudioToVideo();
+            console.log('userTimed: ', userTimed);
+            console.log('play data: ', el);
+            raptor.api.off("userTimed");
+          }
+        });
       });
 
       raptor.api.on("projectEnd", function() {
@@ -77,7 +84,11 @@
     };
 
     raptor.api.on("userTimed", function(data, el) {
-      console.log('userTimed: ', el.time);
+      var userTimed = el.time;
+      if ((userTimed > 0) && (userTimed < 1)) {
+        console.log('userTimed', userTimed);
+        raptor.api.off("userTimed");
+      }
     })
 
     this._syncAudioToVideo = function() {
