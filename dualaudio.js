@@ -41,21 +41,17 @@
 
       raptor.api.on("projectStart", function() {
         _this.audioElm.load();
-        _this.audioElm.currentTime = 0;
-        _this._syncAudioToVideo();
-        _this.audioElm.play();
-        _this._syncAudioToVideo();
       });
 
       raptor.api.on("pause", function() {
         _this.audioElm.pause();
       });
 
-      raptor.api.on("play", function() {
-        _this.audioElm.load();
-        _this.audioElm.currentTime = 0;
+      raptor.api.on("play", function(data, el) {
         _this.audioElm.play();
+        _this.audioElm.currentTime = 0;
         _this._syncAudioToVideo();
+        console.log('play data: ', el)
       });
 
       raptor.api.on("projectEnd", function() {
