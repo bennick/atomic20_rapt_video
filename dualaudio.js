@@ -8,7 +8,7 @@
 //
 
 (function() {
-  var Beneful = function () {
+  var Beneful = function() {
     this.currentAudioTrack = 1;
     this.audioElm = undefined;
     this.audioBtn = undefined;
@@ -35,23 +35,11 @@
 
     this._registerRaptorEvents = function() {
       var _this = this;
-      raptor.api.on("ready", function(event, el){
+      raptor.api.on("ready", function(event, el) {
         raptor.settings("defaultIFrame", el.name);
       });
 
-      raptor.api.on("projectStart", function(){
-        _this.audioElm.load();
-        _this.audioElm.currentTime = 0;
-        _this._syncAudioToVideo();
-     	  _this.audioElm.play();
-        _this._syncAudioToVideo();
-      });
-
-      raptor.api.on("pause", function(){
-	    _this.audioElm.pause();
-      });
-
-      raptor.api.on("play", function(){
+      raptor.api.on("projectStart", function() {
         _this.audioElm.load();
         _this.audioElm.currentTime = 0;
         _this._syncAudioToVideo();
@@ -59,18 +47,30 @@
         _this._syncAudioToVideo();
       });
 
-      raptor.api.on("projectEnd", function(){
-        raptor.api.setNode(iFrameName);
+      raptor.api.on("pause", function() {
+        _this.audioElm.pause();
+      });
+
+      raptor.api.on("play", function() {
+        _this.audioElm.load();
+        _this.audioElm.currentTime = 0;
+        _this.audioElm.play();
+        _this._syncAudioToVideo();
+      });
+
+      raptor.api.on("projectEnd", function() {
+        raptor.api.setNode("defaultIFrame");
+        _this.audioElm.load();
         _this.audioElm.currentTime = 0;
         _this._syncAudioToVideo();
       });
-      
+
     };
 
     this._setUpButtonEventListener = function(iframeName, offset) {
       var _this = this;
       this.audioBtn.addEventListener('click', function() {
-        if(_this.currentAudioTrack == 1) {
+        if (_this.currentAudioTrack == 1) {
           _this.currentAudioTrack = 2;
           _this._syncAudioToVideo();
         } else {
@@ -80,9 +80,13 @@
       });
     };
 
+    raptor.api.on("userTimed", function(data, el) {
+      console.log('userTimed: ', el.time);
+    })
+
     this._syncAudioToVideo = function() {
       var videoTime = raptor.api.state(this.iframeName).progressTime;
-      if(this.currentAudioTrack == 1) {
+      if (this.currentAudioTrack == 1) {
         this.audioElm.currentTime = videoTime;
       } else {
         this.audioElm.currentTime = videoTime + this.offset;
@@ -94,13 +98,13 @@
       var interval = interval;
       var intervalId = undefined;
       var _this = this;
-      raptor.api.on("projectStart", function(){
+      raptor.api.on("projectStart", function() {
         intervalId = setInterval(function() {
           _this._videoAutoOutofSync();
         }, interval);
       });
-      raptor.api.on("projectEnd", function(){
-          clearInterval(intervalId);
+      raptor.api.on("projectEnd", function() {
+        clearInterval(intervalId);
       });
     };
 
