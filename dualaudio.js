@@ -104,7 +104,7 @@
       var interval = interval;
       var intervalId = undefined;
       var _this = this;
-      raptor.api.on("projectStart", function() {
+      raptor.api.on("play", function() {
         intervalId = setInterval(function() {
           _this._videoAutoOutofSync();
         }, interval);
